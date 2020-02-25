@@ -33,7 +33,7 @@ func main() {
 	mask, _ := strconv.Atoi(match[2])
 	goRoutines, _ := strconv.Atoi(argument[2])
 
-	incomingMessageChannel := make(chan returnThingey)
+	incomingMessageChannel := make(chan returnThingey, goRoutines)
 	for t := 0; t < goRoutines; t++ {
 		go doLookup(net.ParseIP(ipAddress), mask, t, goRoutines, incomingMessageChannel)
 	}
