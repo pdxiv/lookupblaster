@@ -11,3 +11,5 @@ Simple multi-threaded utility to lookup the ip addresses in a host range
 The following example shows how to look up all hostnames in the IP range 194.71.11.173/20, using 512 concurrent threads:
 `./lookupblaster 194.71.11.173/20 512` 
 
+The following example shows how to sort the output by IP address:
+`./lookupblaster 194.71.11.173/20 512 | ./sort.pl` 
