@@ -32,6 +32,7 @@ func main() {
 	ipAddress := match[1]
 	mask, _ := strconv.Atoi(match[2])
 	goRoutines, _ := strconv.Atoi(argument[2])
+	goRoutines = int(roundUpToPowerOfTwo(uint32(goRoutines))) // Round number of goroutines up to the nearest power of two
 
 	incomingMessageChannel := make(chan returnThingey, goRoutines)
 	for t := 0; t < goRoutines; t++ {
@@ -79,4 +80,13 @@ func doLookup(ip net.IP, mask int, instance int, instances int, incomingMessageC
 		startNumeric += uint32(instances)
 	}
 	incomingMessageChannel <- returnThingey{"", true}
+}
+
+func roundUpToPowerOfTwo(v uint32) uint32 {
+	v--
+	for t := uint32(0); t < 5; t++ {
+		v |= v >> (1 << t)
+	}
+	v++
+	return v
 }
